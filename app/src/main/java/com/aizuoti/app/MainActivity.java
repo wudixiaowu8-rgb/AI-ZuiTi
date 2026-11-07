@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         TextView title = new TextView(this);
         title.setText("😼 AI 嘴替");
         title.setTextSize(26);
-        title.setTextTypeface(null, Typeface.BOLD);
+        title.setTypeface(null, Typeface.BOLD);
         title.setTextColor(Color.rgb(30,30,55));
         layout.addView(title);
         TextView subtitle = new TextView(this);
