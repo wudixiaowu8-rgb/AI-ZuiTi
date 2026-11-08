@@ -154,6 +154,17 @@ public class MainActivity extends Activity {
         Button offline=button("不联网：按场景生成离线参考");
         root.addView(offline,new LinearLayout.LayoutParams(-1,dp(51)));
         offline.setOnClickListener(v->generateOffline());
+        Button chatgpt=button("免申请 Key：复制调教好的提问给 ChatGPT");
+        root.addView(chatgpt,new LinearLayout.LayoutParams(-1,dp(51)));
+        chatgpt.setOnClickListener(v->{
+            String s=chat();
+            if(s==null)return;
+            String prompt=ReplyBrain.prompt(style,intensity,toneInput.getText().toString())+
+                "\n【聊天内容】\n"+s+"\n请按上面规则分析并给出3条直接可发送的回复。";
+            ((ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE))
+                .setPrimaryClip(ClipData.newPlainText("AI嘴替调教提示词",prompt));
+            toast("已复制高质量提示词，打开 ChatGPT 粘贴发送即可，不用额外 API Key。");
+        });
         gap(root,12);
 
         result=text("还没有生成回复。\n\n真正的上下文分析需要连接免费 AI；离线功能只会匹配常见聊天场景。",16,INK,false);
